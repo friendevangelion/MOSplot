@@ -1,0 +1,70 @@
+# basis setting
+global_circ_num	7	# the number of coils you want to display
+global_init_angle	-1	# inital angle, set if global_circ_num is empty, -1 means empty
+global_start_angle	1635	# start angle
+global_h_zoom	5	# figure zoom, 2*pi*global_h_zoom>global_h_total
+global_h_total	-1	# height for plot, -1 means empty
+global_directory	1	# 1 means inside is max and 0 means outside is max
+
+# panel setting
+tag_data_arc	1	# whether data tag is bended
+tag_data	NULL	# panel tag, NULL means empty
+tag_data_col	999999	# panel tag color
+tag_data_size	1.2	# panel tag size
+tag_data_offrate	0.8	# distance between panel to tag
+panel_x_frag	5787940,160529,69931	# data points of every panel
+panel_x_texture	5000	# data points to draw background
+panel_x_block	20000	# data points per block in panel
+panel_x_blank	20000	# data points between panels
+panel_y_height	8,3	# panel height
+panel_y_blank	2	# blank between panels
+panel_grid_flag	1,0	# panel grid, NULL means empty
+panel_grid_sub_flag	1,0	# panel sub grid, NULL means empty
+panel_color	F7F7F7	# panel background color
+panel_border_color	999999	# panel background border color
+panel_border_size	0.1	# panel background border size
+grid_y_color	BDBDBD	# panel grid y color
+grid_y_width	0.2	# panel grid y width
+grid_x_color	BDBDBD	# block grid x color
+grid_x_width	0.2	# block grid x width
+
+# x tag setting
+tag_x_arc	1	# whether x tag is bended
+tag_x_size	0.8	# x tag size
+tag_x_col	999999	# x tag color
+tag_x_offsize	6	# distance for x tag
+tag_x_span	5	# point displayed per tag_x_span
+tag_x_list	NULL	# x tag list, NULL means empty
+tag_x_pos	NULL	# x tag position, NULL means empty
+tag_x_add	0.001	# set if tag_x_list and tag_x_pos is empty
+tag_x_digit	0	# use scientific notation, set if tag_x_list and tag_x_pos is empty
+tag_x_unit	 K	# set if tag_x_list and tag_x_pos is empty
+# y tag setting
+tag_y_arc	1	# whether y tag is bended
+tag_y_size	0.2	# y tag size
+tag_y_offsize	0	# distance for y tag
+tag_y_col	999999	# y tag color
+tag_y_zoom	0.7	# y tag zoom ratio
+tag_y_st	0%,NA	# y tag list
+tag_y_mid	50%,NA	# y tag list
+tag_y_en	100%,NA	# y tag list
+
+# other setting
+point_span	20	# point displayed per point_span
+point_size	0.01
+point_col	3182BD
+point_alpha	0.8
+# line setting
+line_span	4
+line_size	1
+line_col	525252
+line_alpha	0.8
+# bar setting
+bar_span	1
+bar_line_col	NULL
+bar_line_alpha	0.8
+bar_line_size	1
+bar_fill_col	525252
+bar_fill_alpha	0.8
+
+
