@@ -70,7 +70,7 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (is.null(col)) { col = mos_pars$point_col }
     if (is.null(col.alpha)) { col.alpha = mos_pars$point_alpha }
     plot_col = col2hex(col, col.alpha*255)
-    if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = stemp }
+    if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = size }
     points(x=plot_x, y=plot_y, col=plot_col, cex=plot_size, lwd=NA, pch=pch)
   }
 
@@ -103,9 +103,9 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
         if (length(size)>1) { stemp = size[which(panel==plot_panel[i] & frag==plot_frag[k])] }
         xtemp = xtemp[seq(1,length(x),by=mos_pars$line_span)]
         ytemp = ytemp[seq(1,length(y),by=mos_pars$line_span)]
-        if (length(col)>1) { ctemp = ctemp[seq(1,length(col),by=mos_pars$point_span)] }
-        if (length(col.alpha)>1) { catemp = catemp[seq(1,length(col.alpha),by=mos_pars$point_span)] }
-        if (length(size)>1) { stemp = stemp[seq(1,length(size),by=mos_pars$point_span)] }
+        if (length(col)>1) { ctemp = ctemp[seq(1,length(col),by=mos_pars$point_span)] } else { ctemp = col }
+        if (length(col.alpha)>1) { catemp = catemp[seq(1,length(col.alpha),by=mos_pars$point_span)] } else { catemp = col.alpha }
+        if (length(size)>1) { stemp = stemp[seq(1,length(size),by=mos_pars$point_span)] } else { stemp = size }
         basetemp = mos_pars$baseline[xtemp+mos_pars$frag_st[plot_frag[k]]]
         if (mos_pars$global_directory) {
           plot_x <- (mos_pars$global_h_zoom*basetemp-h+mos_pars$panel_en[plot_panel[i]]-ytemp*(mos_pars$panel_en[plot_panel[i]]-mos_pars$panel_st[plot_panel[i]]))*cos(basetemp)
@@ -246,9 +246,9 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (arrow.size>0 & arrow.type<0) {
       basetemp.st = mos_pars$baseline[x.st+mos_pars$frag_st[ftemp]]
       basetemp.ar = mos_pars$baseline[x.en+mos_pars$frag_st[ftemp]]
-      basetemp.en = mos_pars$baseline[x.en+arrow.size+mos_pars$frag_st[ftemp]]
-      if (length(which(x.en+arrow.size<x.st))>0) {
-        basetemp.en[which(x.en+arrow.size<x.st)] = basetemp.st[which(x.en+arrow.size<x.st)]
+      basetemp.en = mos_pars$baseline[x.en-arrow.size+mos_pars$frag_st[ftemp]]
+      if (length(which(x.en-arrow.size<x.st))>0) {
+        basetemp.en[which(x.en-arrow.size<x.st)] = basetemp.st[which(x.en-arrow.size<x.st)]
       }
     }
     if (arrow.size<0 & arrow.type<0) {
