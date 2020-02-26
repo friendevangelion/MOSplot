@@ -66,5 +66,3 @@ bar_line_alpha	0.8
 bar_line_size	1
 bar_fill_col	525252
 bar_fill_alpha	0.8
-
-
