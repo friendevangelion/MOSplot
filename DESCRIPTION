@@ -1,0 +1,9 @@
+Package: MOSplot
+Type: Package
+Title: A Package For Creating MOSplot (mosquito coil plot) / Spiral Graph
+Version: 1.0.0
+Author: Wenyu Shi
+Maintainer: Wenyu Shi <shiwy@im.ac.cn>
+Description: MOSplot accepts data table as input which contains at least three columns: panel id, fragment id and the corresponding value. Then, MOSplot creates spiral graph in these four steps: Firstly, graph parameters including graph layout setting, panel setting, grid setting, tag setting and geometric element setting are loaded and validated; Next, a blank canvas, background and base line are rendered in turn; After that, users can map their data to canvas with different geometric element including dot, line, bar, arrow-bar and trapezoid, or even user-defined element by x-axis and y-axis coordinate transformation; Lastly, shade region can be added to the top layer on the graph if the users want to highlight some regions.
+Encoding: UTF-8
+LazyData: true
