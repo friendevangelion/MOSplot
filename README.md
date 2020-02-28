@@ -5,10 +5,13 @@ A Package For Creating MOSplot (mosquito coil plot) / Spiral Graph
 All 'MOSplot' resources are uploaded to https://github.com/friendevangelion/MOSplot. You can obtain package 'MOSplot' from github:
 
 \# install.packages("devtools")
+
 devtools::install_github("friendevangelion/MOSplot")
 
 \# install.packages("remotes")
+
 \# library("remotes")
+
 install_github("friendevangelion/MOSplot")
 
 ## USAGE
