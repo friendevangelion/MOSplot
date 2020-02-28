@@ -20,7 +20,10 @@ The detail usage is contained in the manual file. Or you can simply check help m
 ## NEWS
 ### version 1.1.0
 Update test dataset in Rdata/Rda format.
+
 Add a function update_parameters().
+
 Increase some error detection points.
+
 ### version 1.0.0
 Initial version.
