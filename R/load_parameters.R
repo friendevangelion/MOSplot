@@ -103,7 +103,7 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if (!("panel_x_frag" %in% names(mos_pars))) { error_flag = 1; warning("panel_x_frag has not been set!") } else { if (length(mos_pars$panel_x_frag)<0) { warning("panel_x_frag is not illegal!") } }
   if (!("panel_x_texture" %in% names(mos_pars))) { mos_pars$panel_x_texture = NULL }
   if (!("panel_x_block" %in% names(mos_pars))) { mos_pars$panel_x_block = NULL }
-  if (!("panel_x_blank" %in% names(mos_pars))) { mos_pars$panel_x_blank = NULL }
+  if (!("panel_x_blank" %in% names(mos_pars))) { mos_pars$panel_x_blank = 0 }
   if (!("panel_y_height" %in% names(mos_pars))) { error_flag = 1; warning("panel_y_height has not been set!") } else { if (length(mos_pars$panel_y_height)<0) { warning("panel_y_height is not illegal!") } }
   if (!("panel_y_blank" %in% names(mos_pars))) { mos_pars$panel_x_blank = 0.5 }
   if (!("panel_grid_flag" %in% names(mos_pars))) { if (("panel_y_height" %in% names(mos_pars))) { mos_pars$panel_grid_flag = rep(0, length(mos_pars$panel_y_height%in% names(mos_pars))) } }
@@ -115,6 +115,8 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if (!("grid_y_width" %in% names(mos_pars))) { mos_pars$grid_y_width = 0.1 }
   if (!("grid_x_color" %in% names(mos_pars))) { mos_pars$grid_x_color = "#E6E6E6" }
   if (!("grid_x_width" %in% names(mos_pars))) { mos_pars$grid_x_width = 0.1 }
+  if (!is.null(mos_pars$panel_x_texture)) { mos_pars$panel_x_texture = sum(mos_pars$panel_x_frag)/100 }
+  if (!is.null(mos_pars$panel_x_block)) { mos_pars$panel_x_block = 10^floor(log(mos_pars$panel_x_texture, base=10))*4 }
   if (!is.null(mos_pars$tag_data)) {
     if (length(mos_pars$tag_data)!=length(mos_pars$panel_x_frag)) { warning("tag_data is not in same length with panel_x_frag, tag_data will be set as NULL!"); mos_pars$tag_data = NULL; }
   }
@@ -216,22 +218,6 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
       tri[upper.tri(tri)] = 0
       mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
     }
-    # init baseline
-    theta_angle = mos_pars$global_start_angle/180*pi
-    dl = theta_angle*mos_pars$global_init_angle/180*pi
-    total_data = sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank
-    mos_pars$baseline = rep(0, total_data+1)
-    i = 0
-    while (i<=total_data+1) {
-      mos_pars$baseline[i] = theta_angle
-      dt = dl/theta_angle
-      theta_angle = theta_angle+dt
-      i = i+1
-    }
-    mos_pars$h = mos_pars$global_h_total/2
-    mos_pars$size = max(c(mos_pars$global_h_zoom*mos_pars$baseline*cos(mos_pars$baseline),
-                          mos_pars$global_h_zoom*mos_pars$baseline*sin(mos_pars$baseline))) +
-      mos_pars$global_h_total+mos_pars$tag_x_offsize+mos_pars$tag_x_size
     return (mos_pars)
   } else {
     return (list())

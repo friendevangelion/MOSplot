@@ -157,5 +157,12 @@ bar_fill_col (character color)
 bar_fill_alpha (numeric)
 }
 \examples{
+# Please set your working directory to 'data_raw' of MOSplot.
+pars <- load_parameters(file="CP003879.pars.txt")
 
+# You can use str(pars) to see the data structure.
+str(pars)
+
+# After your graph parameters are loaded without errors,
+# graph parameters should be updated with function 'update_parameters'.
 }
