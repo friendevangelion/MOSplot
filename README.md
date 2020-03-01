@@ -9,7 +9,7 @@ All 'MOSplot' resources are uploaded to https://github.com/friendevangelion/MOSp
 devtools::install_github("friendevangelion/MOSplot")
 ```
 
-Or:
+or
 
 ```
 # install.packages("remotes")
