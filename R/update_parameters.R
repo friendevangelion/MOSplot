@@ -46,9 +46,8 @@ update_parameters <- function(mos_pars=NULL) {
     theta_angle = theta_angle+dt
     i = i+1
   }
-  mos_pars$h = mos_pars$global_h_total/2
   mos_pars$size = max(c(mos_pars$global_h_zoom*mos_pars$baseline*cos(mos_pars$baseline),
                         mos_pars$global_h_zoom*mos_pars$baseline*sin(mos_pars$baseline))) +
-    mos_pars$global_h_total+mos_pars$tag_x_offsize+mos_pars$tag_x_size
+  mos_pars$global_h_total+mos_pars$tag_x_offsize+mos_pars$tag_x_size
   return (mos_pars)
 }

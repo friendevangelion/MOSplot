@@ -27,9 +27,15 @@
 mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NULL, x.st=NULL, x.en=NULL, y=NULL, y.st=NULL, y.en=NULL, y.range=NULL, col=NULL, col.alpha=NULL, fill=NULL, fill.alpha=NULL, size=NULL, arrow.size=NULL, arrow.type=-1, pch=19) {
 
   col2hex <- function(col, alpha) { rgb(t(col2rgb(col)), alpha=alpha, maxColorValue=255) }
-  h = mos_pars$h
+  h = mos_pars$global_h_total/2
 
   if (is.null(mos_pars)) { stop ("mos_pars is NULL!") }
+  if (!("baseline" %in% names(mos_pars))) { stop ("There is no 'baseline' tag in your parameters, maybe there is something wrong in function 'load_parameters' or 'update_parameters'!") }
+  else {
+    if (length(mos_pars$baseline)!=sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
+      stop ("The length of 'baseline' is not match with the given parameters 'panel_x_frag' and 'panel_x_blank', maybe there is something wrong in function 'load_parameters' or 'update_parameters'!")
+    }
+  }
   if (is.null(shape)) { stop ("shape is NULL!") }
   if (is.null(panel) & length(mos_pars$panel_y_height)>1) { stop ("panel ID is not given!") }
   if (is.null(frag) & length(mos_pars$panel_x_frag)>1) { stop ("fragment ID is not given!") }

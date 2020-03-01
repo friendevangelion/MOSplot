@@ -22,9 +22,15 @@
 mapping_marker <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x.st=NULL, x.en=NULL, y.st=NULL, y.en=NULL, y.range=NULL, col=NULL, col.alpha=NULL, fill=NULL, fill.alpha=NULL, size=NULL, others=NULL, tri=NULL, plwd=0.1, pch=21) {
   col2hex <- function(col, alpha) { rgb(t(col2rgb(col)), alpha=alpha, maxColorValue=255) }
   pi = 3.1415926
-  h = mos_pars$h
-
+  h = mos_pars$global_h_total/2
+  
   if (is.null(mos_pars)) { stop ("mos_pars is NULL!") }
+  if (!("baseline" %in% names(mos_pars))) { stop ("There is no 'baseline' tag in your parameters, maybe there is something wrong in function 'load_parameters' or 'update_parameters'!") }
+  else {
+    if (length(mos_pars$baseline)!=sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
+      stop ("The length of 'baseline' is not match with the given parameters 'panel_x_frag' and 'panel_x_blank', maybe there is something wrong in function 'load_parameters' or 'update_parameters'!")
+    }
+  }
   if (is.null(shape)) { stop ("shape is NULL!") }
   if (is.null(x.st)) { stop ("x.st is not given!") }
   if (shape=="point" | shape=="p") {
