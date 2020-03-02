@@ -115,8 +115,8 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if (!("grid_y_width" %in% names(mos_pars))) { mos_pars$grid_y_width = 0.1 }
   if (!("grid_x_color" %in% names(mos_pars))) { mos_pars$grid_x_color = "#E6E6E6" }
   if (!("grid_x_width" %in% names(mos_pars))) { mos_pars$grid_x_width = 0.1 }
-  if (!is.null(mos_pars$panel_x_texture)) { mos_pars$panel_x_texture = sum(mos_pars$panel_x_frag)/100 }
-  if (!is.null(mos_pars$panel_x_block)) { mos_pars$panel_x_block = 10^floor(log(mos_pars$panel_x_texture, base=10))*4 }
+  if (is.null(mos_pars$panel_x_texture)) { mos_pars$panel_x_texture = sum(mos_pars$panel_x_frag)/100 }
+  if (is.null(mos_pars$panel_x_block)) { mos_pars$panel_x_block = 10^floor(log(sum(mos_pars$panel_x_frag)/100, base=10))*4 }
   if (!is.null(mos_pars$tag_data)) {
     if (length(mos_pars$tag_data)!=length(mos_pars$panel_x_frag)) { warning("tag_data is not in same length with panel_x_frag, tag_data will be set as NULL!"); mos_pars$tag_data = NULL; }
   }

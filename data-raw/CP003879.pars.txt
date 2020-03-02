@@ -9,11 +9,11 @@ global_directory	1	# 1 means inside is max and 0 means outside is max
 # panel setting
 tag_data_arc	1	# whether data tag is bended
 tag_data	NULL	# panel tag, NULL means empty
-tag_data_col	999999	# panel tag color
+tag_data_col	525252	# panel tag color
 tag_data_size	1	# panel tag size
 tag_data_offrate	0.8	# distance between panel to tag
 panel_x_frag	4321832	# data points of every panel
-panel_x_texture	5000	# data points to draw background
+panel_x_texture	2000	# data points to draw background
 panel_x_block	20000	# data points per block in panel
 panel_x_blank	20000	# data points between panels
 panel_y_height	12,6	# panel height
@@ -31,7 +31,7 @@ grid_x_width	0.2	# block grid x width
 # x tag setting
 tag_x_arc	1	# whether x tag is bended
 tag_x_size	0.8	# x tag size
-tag_x_col	999999	# x tag color
+tag_x_col	525252	# x tag color
 tag_x_offsize	6	# distance for x tag
 tag_x_span	5	# point displayed per tag_x_span
 tag_x_list	NULL	# x tag list, NULL means empty

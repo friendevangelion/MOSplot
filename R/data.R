@@ -36,3 +36,14 @@
 #'   \item{GCskew}{GC-skew of sliding window}
 #' }
 "data_gene"
+#' A dataset of highlighted genomic islands: 
+#'
+#' @format A data frame with 3746 rows and 7 variables:
+#' \describe{
+#'   \item{SeqID}{sequence id}
+#'   \item{Source}{start position of sliding window}
+#'   \item{endPosition}{end position of sliding window}
+#'   \item{GCcontent}{GC-content of sliding window}
+#'   \item{GCskew}{GC-skew of sliding window}
+#' }
+"data_marker"

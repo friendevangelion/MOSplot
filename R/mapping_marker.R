@@ -27,7 +27,7 @@ mapping_marker <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x.s
   if (is.null(mos_pars)) { stop ("mos_pars is NULL!") }
   if (!("baseline" %in% names(mos_pars))) { stop ("There is no 'baseline' tag in your parameters, maybe there is something wrong in function 'load_parameters' or 'update_parameters'!") }
   else {
-    if (length(mos_pars$baseline)!=sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
+    if (length(mos_pars$baseline)<sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
       stop ("The length of 'baseline' is not match with the given parameters 'panel_x_frag' and 'panel_x_blank', maybe there is something wrong in function 'load_parameters' or 'update_parameters'!")
     }
   }
@@ -113,7 +113,7 @@ mapping_marker <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x.s
       if (is.null(fill)) { fill = mos_pars$bar_fill_col }
       if (is.null(fill.alpha)) { fill.alpha = mos_pars$bar_fill_alpha }
       if (!is.null(fill) & !is.null(fill.alpha)) { plot_fill = col2hex(fill, fill.alpha*255) } else { plot_fill = NULL }
-      if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = stemp }
+      if (is.null(size)) { plot_size = mos_pars$line_size } else { plot_size = size }
       if (!is.null(plot_col) & !is.null(plot_fill)) {
         if (length(plot_fill)>1) { pfill = plot_fill[j] } else { pfill = plot_fill }
         if (length(plot_size)>1) { psize = plot_size[j] } else { psize = plot_size }
@@ -150,7 +150,7 @@ mapping_marker <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x.s
     if (is.null(fill)) { fill = mos_pars$bar_fill_col }
     if (is.null(fill.alpha)) { fill.alpha = mos_pars$bar_fill_alpha }
     if (!is.null(fill) & !is.null(fill.alpha)) { plot_fill = col2hex(fill, fill.alpha*255) } else { plot_fill = NULL }
-    if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = stemp }
+    if (is.null(size)) { plot_size = mos_pars$line_size } else { plot_size = stemp }
     for (j in seq(1, length(x.st))) {
       basetemp = mos_pars$baseline[c(seq(mos_pars$frag_st[frag[j]]+x.st[j], mos_pars$frag_st[frag[j]]+x.en[j], by=mos_pars$panel_x_texture), mos_pars$frag_st[frag[j]]+x.en[j])]
       temp = rbind(cbind((mos_pars$global_h_zoom*basetemp-h)*cos(basetemp),
@@ -192,7 +192,7 @@ mapping_marker <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x.s
     if (is.null(fill)) { fill = mos_pars$bar_fill_col }
     if (is.null(fill.alpha)) { fill.alpha = mos_pars$bar_fill_alpha }
     if (!is.null(fill) & !is.null(fill.alpha)) { plot_fill = col2hex(fill, fill.alpha*255) } else { plot_fill = NULL }
-    if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = stemp }
+    if (is.null(size)) { plot_size = mos_pars$line_size } else { plot_size = size }
     for (j in seq(1, length(x.st))) {
       basetemp = mos_pars$baseline[mos_pars$frag_st[frag[j]]+x.st[j]]
       if (tri[1]>0) {

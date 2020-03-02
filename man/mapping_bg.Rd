@@ -11,4 +11,10 @@ mapping_bg(mos_pars=NULL)
 \item{mos_pars}{arguments list: generated in function load_parameters.}
 }
 \examples{
+library(MOSplot)
+updated_pars <- update_parameters(mos_pars=pars)
+pdf("demo.pdf")
+# NOTE: only updated parameters can be used to plot background/shapes/markers
+mapping_bg(updated_pars)
+dev.off()
 }

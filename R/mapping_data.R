@@ -29,10 +29,10 @@ mapping_data <- function(data=NULL, col_name=NULL, ori_tag=NULL, mapping_tag=NUL
       if (length(tmp_na_list)>0) {
         if (is.null(other_tag)) {
           tmp_data[tmp_na_list] <- data[[col_name]][tmp_na_list]
-          warning ("NA produced by unmapped data, replaced them by original data!")
+          show ("NA produced by unmapped data, replaced them by original data!")
         } else {
           tmp_data[tmp_na_list] <- other_tag
-          warning ("NA produced by unmapped data, replaced them by other_tag!")
+          show ("NA produced by unmapped data, replaced them by other_tag!")
         }
       }
       data[[col_name]] <- tmp_data

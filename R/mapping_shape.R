@@ -32,7 +32,7 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
   if (is.null(mos_pars)) { stop ("mos_pars is NULL!") }
   if (!("baseline" %in% names(mos_pars))) { stop ("There is no 'baseline' tag in your parameters, maybe there is something wrong in function 'load_parameters' or 'update_parameters'!") }
   else {
-    if (length(mos_pars$baseline)!=sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
+    if (length(mos_pars$baseline)<sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
       stop ("The length of 'baseline' is not match with the given parameters 'panel_x_frag' and 'panel_x_blank', maybe there is something wrong in function 'load_parameters' or 'update_parameters'!")
     }
   }
@@ -171,7 +171,7 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (length(col.alpha)>1) { col.alpha = col.alpha[seq(1,length(col.alpha),by=mos_pars$bar_span)] }
     if (length(fill)>1) { fill = fill[seq(1,length(fill),by=mos_pars$bar_span)] }
     if (length(fill.alpha)>1) { fill.alpha = fill.alpha[seq(1,length(fill.alpha),by=mos_pars$bar_span)] }
-    if (length(size)>1) { stemp = size[seq(1,length(size),by=mos_pars$bar_span)] }
+    if (length(size)>1) { stemp = size[seq(1,length(size),by=mos_pars$bar_span)] } else if (length(size)==1) { stemp = size }
     if (mos_pars$global_directory) {
       plot_x11 <- (mos_pars$global_h_zoom*basetemp.st-h+mos_pars$panel_en[ptemp]-y.st*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*cos(basetemp.st)
       plot_x12 <- (mos_pars$global_h_zoom*basetemp.en-h+mos_pars$panel_en[ptemp]-y.st*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*cos(basetemp.en)
@@ -233,8 +233,6 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     x.en = x.en[seq(1,length(x.en),by=mos_pars$bar_span)]
     ptemp = panel[seq(1,length(panel),by=mos_pars$bar_span)]
     ftemp = frag[seq(1,length(frag),by=mos_pars$bar_span)]
-    ptemp = panel[seq(1,length(panel),by=mos_pars$bar_span)]
-    ftemp = frag[seq(1,length(frag),by=mos_pars$bar_span)]
     if (arrow.size>0 & arrow.type>0) {
       basetemp.st = mos_pars$baseline[x.st+mos_pars$frag_st[ftemp]]
       basetemp.en = mos_pars$baseline[x.en+mos_pars$frag_st[ftemp]]
@@ -269,7 +267,7 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (length(col.alpha)>1) { col.alpha = col.alpha[seq(1,length(col.alpha),by=mos_pars$bar_span)] }
     if (length(fill)>1) { fill = fill[seq(1,length(fill),by=mos_pars$bar_span)] }
     if (length(fill.alpha)>1) { fill.alpha = fill.alpha[seq(1,length(fill.alpha),by=mos_pars$bar_span)] }
-    if (length(size)>1) { stemp = size[seq(1,length(size),by=mos_pars$bar_span)] }
+    if (length(size)>1) { stemp = size[seq(1,length(size),by=mos_pars$bar_span)] } else if (length(size)==1) { stemp = size }
     if (mos_pars$global_directory) {
       plot_x11 <- (mos_pars$global_h_zoom*basetemp.st-h+mos_pars$panel_en[ptemp]-y.st*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*cos(basetemp.st)
       plot_x12 <- (mos_pars$global_h_zoom*basetemp.en-h+mos_pars$panel_en[ptemp]-y.st*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*cos(basetemp.en)
@@ -325,3 +323,4 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     }
   }
 }
+

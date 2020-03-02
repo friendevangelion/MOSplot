@@ -11,6 +11,7 @@ update_parameters(mos_pars=NULL)
 \item{mos_pars}{arguments list: generated in function load_parameters.}
 }
 \examples{
+library(MOSplot)
 updated_pars <- update_parameters(mos_pars=pars)
 
 # You can compare str(updated_pars) with str(pars) to check the difference.
