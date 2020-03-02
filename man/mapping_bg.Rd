@@ -12,7 +12,7 @@ mapping_bg(mos_pars=NULL)
 }
 \examples{
 library(MOSplot)
-updated_pars <- update_parameters(mos_pars=pars)
+updated_pars <- update_parameters(mos_pars=data_pars)
 pdf("demo.pdf")
 # NOTE: only updated parameters can be used to plot background/shapes/markers
 mapping_bg(updated_pars)

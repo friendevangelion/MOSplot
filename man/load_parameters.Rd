@@ -159,10 +159,10 @@ bar_fill_alpha (numeric)
 \examples{
 library(MOSplot)
 # Please set your working directory to 'data_raw' of MOSplot.
-pars <- load_parameters(file="CP003879.pars.txt")
+data_pars <- load_parameters(file="CP003879.pars.txt")
 
-# You can use str(pars) to see the data structure.
-str(pars)
+# You can use str(data_pars) to see the data structure.
+str(data_pars)
 
 # After your graph parameters are loaded without errors,
 # graph parameters should be updated with function 'update_parameters'.

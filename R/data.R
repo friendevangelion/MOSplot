@@ -13,7 +13,7 @@
 #' \describe{
 #'   details in function load_parameters() 
 #' }
-"pars"
+"data_pars"
 #' A dataset of GC-content and GC-skew value of all sliding windows in Psychroflexus torquis ATCC 700755 genome: 
 #'
 #' @format A data frame with 21605 rows and 5 variables:

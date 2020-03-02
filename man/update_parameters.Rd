@@ -12,7 +12,7 @@ update_parameters(mos_pars=NULL)
 }
 \examples{
 library(MOSplot)
-updated_pars <- update_parameters(mos_pars=pars)
+updated_pars <- update_parameters(mos_pars=data_pars)
 
 # You can compare str(updated_pars) with str(pars) to check the difference.
 names(updated_pars)[which(!(names(updated_pars) %in% names(pars)))]
