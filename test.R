@@ -1,6 +1,5 @@
 library(MOSplot)
 
-
 cog_color <- read.table("COG.dark.color.config", sep="\t", stringsAsFactors=F, header=T, comment.char="")
 pars <- load_parameters("CP003879.pars.txt")
 updated_pars <- update_parameters(pars)

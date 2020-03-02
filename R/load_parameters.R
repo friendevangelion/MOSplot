@@ -6,15 +6,21 @@
 #' @param sep character (default is "\\t"): separator between column in graph parameters file.
 #' @param skip numeric (default is 0): see 'scan {base}'.
 #' @param nline numeric (default is 0): see 'scan {base}'.
+#' @param isFile boolean (default is True): wether the input is file or dataframe.
 #'
 #' @return a list
 #' @export
 #'
 #' @examples
 #'
-load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote = if(identical(sep, "\n")) "" else "'\"", skip=0, nlines=0) {
-  ori_data <- scan(file=file, what=what, comment.char=comment.char, sep="\n", quote=quote, skip=skip, nlines=nlines)
+load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote = if(identical(sep, "\n")) "" else "'\"", skip=0, nlines=0, isFile=T) {
+  if (isFile) {
+    ori_data <- scan(file=file, what=what, comment.char=comment.char, sep="\n", quote=quote, skip=skip, nlines=nlines)
+  } else {
+    ori_data <- file
+  }
   tmp_data <- strsplit(ori_data, split=sep)
+  tmp_data <- lapply(tmp_data, head, n=2)
   mos_pars <- list()
   mos_pars <- lapply(tmp_data, tail, n=-1)
   names(mos_pars) <- lapply(tmp_data, head, n=1)
