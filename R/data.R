@@ -7,7 +7,7 @@
 #'   \item{rgb}{rgb color value}
 #' }
 "cog_color"
-#' A list: 
+#' A parameter list: 
 #'
 #' @format A list with several arguments needed in MOSplot:
 #' \describe{
