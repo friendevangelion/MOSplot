@@ -6,6 +6,7 @@ All 'MOSplot' resources are uploaded to https://github.com/friendevangelion/MOSp
 
 ```
 # install.packages("devtools")
+library("devtools")
 devtools::install_github("friendevangelion/MOSplot")
 ```
 
@@ -13,7 +14,7 @@ or
 
 ```
 # install.packages("remotes")
-# library("remotes")
+library("remotes")
 install_github("friendevangelion/MOSplot")
 ```
 
