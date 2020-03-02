@@ -11,7 +11,6 @@
 #'
 #' @format A list with several arguments needed in MOSplot:
 #' \describe{
-#'   details in function load_parameters() 
 #' }
 "data_pars"
 #' A dataset of GC-content and GC-skew value of all sliding windows in Psychroflexus torquis ATCC 700755 genome: 
