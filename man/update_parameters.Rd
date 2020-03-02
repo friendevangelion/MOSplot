@@ -12,7 +12,6 @@ update_parameters(mos_pars=NULL)
 }
 \examples{
 library(MOSplot)
-pars <- load_parameters(data_pars$data_pars, isFile=F)
 updated_pars <- update_parameters(mos_pars=pars)
 
 # You can compare str(updated_pars) with str(pars) to check the difference.

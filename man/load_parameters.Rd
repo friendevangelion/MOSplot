@@ -164,9 +164,6 @@ pars <- load_parameters(file="CP003879.pars.txt")
 # You can use str(data_pars) to see the data structure.
 str(data_pars)
 
-# For demo, you can load parameters from a data frame
-pars <- load_parameters(data_pars$data_pars, isFile=F)
-
 # After your graph parameters are loaded without errors,
 # graph parameters should be updated with function 'update_parameters'.
 }
