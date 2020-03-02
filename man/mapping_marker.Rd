@@ -43,7 +43,7 @@ If "triangle"/"t" is selected as 'shape', parameters 'panel', 'frag' and 'x.st' 
 'col', 'col.alpha', 'fill' and 'fill.alpha' can be a single value or an array. If 'col', 'col.alpha', 'fill' or 'fill.alpha' is an array, it should be equal with your data in length.
 }
 \examples{
-pars <- load_parameters(data_pars, isFile=F)
+pars <- load_parameters(data_pars$data_pars, isFile=F)
 updated_pars <- update_parameters(pars)
 mapping_bg(updated_pars)
 updated_gc <- mapping_data(data=data_gc, col_name="SeqID", ori_tag=c("CP003879.1"), mapping_tag=c(1))
