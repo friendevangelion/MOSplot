@@ -34,7 +34,7 @@ mapping_marker()      Mapping Marker on Spiral Graph
 
 Here are some questions on the installation of MOSplot: 
 
-Q1. Error caused by dependency 'plotrix'.
+**Q1. Error occurred in the installation of package 'plotrix'.**
 
 ```
 ERROR: dependency 'plotrix' is not available for package 'MOSplot'
