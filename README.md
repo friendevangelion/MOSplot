@@ -19,7 +19,8 @@ install_github("friendevangelion/MOSplot")
 ```
 
 ## USAGE
-The detail usage is contained in the manual file. Or you can simply check help message of all the functions in 'MOSplot' by using '?function()' in R.
+
+The **DETAIL USAGE** is contained in the manual file. Or you can simply check help message of all the functions in 'MOSplot' by using '?function()' in R.
 
 ```
 mapping_data()        Convert Data to Other Corresponding Value
