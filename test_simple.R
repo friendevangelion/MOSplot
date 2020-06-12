@@ -54,5 +54,5 @@ mapping_marker(mos_pars=updated_pars, shape="t", panel=1, frag=1,
                y.st=rep(0.5, 3), y.range=c(0,1), fill="#A63603", tri=c(-1,8,15))
 
 mapping_text(mos_pars=updated_pars, panel=2, frag=1,
-            x=(data_marker$Start+data_marker$End)/2, y=rep(-2, nrow(data_marker)), y.range=c(0,1), texts=data_marker$GI, text_arc=T, angle="off", cex=1, col="red")
+            x=(data_marker$Start+data_marker$End)/2, y=rep(-2, nrow(data_marker)), y.range=c(0,1), texts=data_marker$GI, angle=0, cex=1, col="red")
 dev.off()

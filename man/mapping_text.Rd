@@ -15,15 +15,15 @@ mapping_text(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y.range=NULL,
 \item{y}{numeric vector: y coordinates.}
 \item{y.range}{vector contains two numeric elements: c(lower bound of data, upper bound of data).}
 \item{text}{character vector: texts.}
-\item{text_arc}{boolean: whether text is bended or not.}
-\item{angle}{character or numeric: can be "off", "auto" or numeric.}
+\item{text_arc}{character: can be "on", "off" or "auto".}
+\item{angle}{numeric: text rotation in degree.}
 }
 \details{
 'x' and 'y' have to be equal in length. If 'panel' or 'frag' is a numeric array, it should be equal with 'x' and 'y' in length.
 
-If 'text_arc' is set to True, 'angle' is useless.
+If 'text_arc' is set to 'on' or 'auto', 'angle' is useless.
 
-If 'text_arc' is set to False, text is horizontal if 'angle' is selected as 'off' / text is parallel to the tangent of the spiral if 'angle' is selected as 'auto' / text is rotated N degree if 'angle' is set to N.
+If 'text_arc' is set to 'on' or 'auto', text is parallel to the tangent of the spiral.
 }
 \examples{
 updated_pars <- update_parameters(pars)
@@ -80,6 +80,6 @@ mapping_marker(mos_pars=updated_pars, shape="t", panel=1, frag=1,
                y.st=rep(0.5, 3), y.range=c(0,1), fill="#A63603", tri=c(-1,8,15))
 
 mapping_text(mos_pars=updated_pars, panel=2, frag=1,
-            x=data_marker$End, y=rep(-2, nrow(data_marker)), y.range=c(0,1), texts=data_marker$Description, text_arc=F, angle="off", cex=0.3)
+            x=data_marker$End, y=rep(-2, nrow(data_marker)), y.range=c(0,1), texts=data_marker$Description, text_arc=F, angle=0, cex=0.3)
 dev.off()
 }

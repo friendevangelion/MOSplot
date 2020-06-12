@@ -51,7 +51,6 @@ mapping_marker(mos_pars=updated_pars, shape="r", panel=2, frag=1,
                x.st=data_marker$Start, x.en=data_marker$End,
                y.st=rep(0, nrow(data_marker)), y.en=rep(1, nrow(data_marker)),
                y.range=c(0,1), col="#A63603", col.alpha=0.95, fill.alpha=0, size=1)
-data_gc[which(data_gc$GCcontent>0.48),]
 mapping_marker(mos_pars=updated_pars, shape="p", panel=1, frag=1,
                x.st=c((672600+677200)/2, (2719000+2723800)/2, (3840000+3844600)/2),
                y.st=rep(0.5, 3), y.range=c(0,1), col="#A63603", col.alpha=0.95, fill.alpha=0, size=2, plwd=1)
@@ -59,5 +58,5 @@ mapping_marker(mos_pars=updated_pars, shape="t", panel=1, frag=1,
                x.st=c((672600+677200)/2, (2719000+2723800)/2, (3840000+3844600)/2),
                y.st=rep(0.5, 3), y.range=c(0,1), fill="#A63603", tri=c(-1,8,15))
 mapping_text(mos_pars=updated_pars, panel=1, frag=1,
-            x=data_marker$Start+data_marker$End, y=1, y.range=c(0,1), texts=data_marker$Description, angle="auto")
+            x=data_marker$Start+data_marker$End, y=1, y.range=c(0,1), texts=data_marker$Description, angle=0)
 dev.off()

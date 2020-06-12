@@ -15,7 +15,7 @@
 #'
 #' @examples
 #'
-mapping_text <- function(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y.range=NULL, texts=NULL, text_arc=T, angle="auto", ...) {
+mapping_text <- function(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y.range=NULL, texts=NULL, text_arc="off", angle=0, ...) {
   pi = 3.1415926
   h = mos_pars$global_h_total/2
   
@@ -44,7 +44,7 @@ mapping_text <- function(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y
   ytemp = y
   basetemp = mos_pars$baseline[xtemp+mos_pars$frag_st[frag]]
   ptemp = panel[seq(1,length(panel),by=mos_pars$point_span)]
-  if (text_arc) {
+  if (text_arc=="on") {
     if (mos_pars$global_directory) {
       rtemp = mos_pars$global_h_zoom*basetemp-h+mos_pars$panel_en[ptemp]-ytemp*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp])
     } else {
@@ -61,13 +61,15 @@ mapping_text <- function(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y
       plot_x <- (mos_pars$global_h_zoom*basetemp+h-mos_pars$panel_en[ptemp]+ytemp*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*cos(basetemp)
       plot_y <- (mos_pars$global_h_zoom*basetemp+h-mos_pars$panel_en[ptemp]+ytemp*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp]))*sin(basetemp)
     }
-    if (angle=="off") {
-      text(x=plot_x, y=plot_y, labels=texts, ...)
-    } else if (angle=="auto") {
-      for (i in seq(1, length(texts))) {
-        text(x=plot_x[i], y=plot_y[i], labels=texts[i], srt=basetemp[i]/pi*180+90, ...)
+    if (text_arc=="off") {
+      if (angle==0) {
+        text(x=plot_x, y=plot_y, labels=texts, ...)
+      } else {
+        for (i in seq(1, length(texts))) {
+          text(x=plot_x[i], y=plot_y[i], labels=texts[i], srt=angle, ...)
+        }
       }
-    } else {
+    } else if (text_arc=="auto") {
       for (i in seq(1, length(texts))) {
         text(x=plot_x[i], y=plot_y[i], labels=texts[i], srt=basetemp[i]/pi*180+90+angle, ...)
       }
