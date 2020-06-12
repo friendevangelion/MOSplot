@@ -7,7 +7,7 @@
 #'
 #' @examples
 #'
-update_parameters <- function(mos_pars=NULL) {
+update_parameters <- function(mos_pars=NULL, baseline_init=T) {
   if (is.null(mos_pars)) {
     stop ("mos_pars is NULL!")
   }
@@ -54,19 +54,21 @@ update_parameters <- function(mos_pars=NULL) {
     mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
   }
   # init baseline
-  theta_angle = mos_pars$global_start_angle/180*pi
-  dl = theta_angle*mos_pars$global_init_angle/180*pi
-  total_data = sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank
-  mos_pars$baseline = rep(0, total_data+1)
-  i = 0
-  while (i<=total_data+1) {
-    mos_pars$baseline[i] = theta_angle
-    dt = dl/theta_angle
-    theta_angle = theta_angle+dt
-    i = i+1
+  if (baseline_init) {
+    theta_angle = mos_pars$global_start_angle/180*pi
+    dl = theta_angle*mos_pars$global_init_angle/180*pi
+    total_data = sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank
+    mos_pars$baseline = rep(0, total_data+1)
+    i = 0
+    while (i<=total_data+1) {
+      mos_pars$baseline[i] = theta_angle
+      dt = dl/theta_angle
+      theta_angle = theta_angle+dt
+      i = i+1
+    }
+    mos_pars$size = max(c(mos_pars$global_h_zoom*mos_pars$baseline*cos(mos_pars$baseline),
+                          mos_pars$global_h_zoom*mos_pars$baseline*sin(mos_pars$baseline))) +
+    mos_pars$global_h_total+mos_pars$tag_x_offsize+mos_pars$tag_x_size
   }
-  mos_pars$size = max(c(mos_pars$global_h_zoom*mos_pars$baseline*cos(mos_pars$baseline),
-                        mos_pars$global_h_zoom*mos_pars$baseline*sin(mos_pars$baseline))) +
-  mos_pars$global_h_total+mos_pars$tag_x_offsize+mos_pars$tag_x_size
   return (mos_pars)
 }
