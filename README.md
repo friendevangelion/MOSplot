@@ -54,6 +54,14 @@ install_version("plotrix", version = "3.7",repos = "http://cran.us.r-project.org
 
 ## NEWS
 
+### version 1.1.1
+
+Add a function mapping_marker().
+
+Fix bugs in update_parameters().
+
+Add a short version of example without loading file.
+
 ### version 1.1.0
 
 Update test dataset in Rdata/Rda format.
