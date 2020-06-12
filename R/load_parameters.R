@@ -205,25 +205,6 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
       show (paste("global_init_angle had been reset to ", mos_pars$global_init_angle, "!", sep=""))
       if (mos_pars$global_init_angle<1e-6) { show ("global_init_angle is better larger than 0.000001, please enlarge global_circ_num!") }
     }
-    # panel_st panel_en frag_st frag_en setting
-    mos_pars$panel_coord_auto = 1
-    if (mos_pars$panel_coord_auto) {
-      tri = matrix(0, length(mos_pars$panel_y_height), length(mos_pars$panel_y_height))
-      tri[lower.tri(tri)] = 1
-      mos_pars$panel_st = as.vector(tri %*% mos_pars$panel_y_height) + seq(0,length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
-      tri = matrix(1, length(mos_pars$panel_y_height), length(mos_pars$panel_y_height))
-      tri[upper.tri(tri)] = 0
-      mos_pars$panel_en = as.vector(tri %*% mos_pars$panel_y_height) + seq(0,length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
-    }
-    mos_pars$block_coord_auto = 1
-    if (mos_pars$block_coord_auto) {
-      tri = matrix(0, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
-      tri[lower.tri(tri)] = 1
-      mos_pars$frag_st = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
-      tri = matrix(1, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
-      tri[upper.tri(tri)] = 0
-      mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
-    }
     return (mos_pars)
   } else {
     return (list())

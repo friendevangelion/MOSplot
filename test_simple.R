@@ -1,15 +1,11 @@
 library(MOSplot)
 
-cog_color <- read.table("COG.dark.color.config", sep="\t", stringsAsFactors=F, header=T, comment.char="")
-pars <- load_parameters("CP003879.pars.txt")
+# please modify the output full path in pdf("test.pdf")
 updated_pars <- update_parameters(pars)
-data_gc <- read.table("CP003879.genomeGC.tab", header=T, sep="\t", stringsAsFactors=F)
 updated_gc <- mapping_data(data=data_gc, col_name="SeqID", ori_tag=c("CP003879.1"), mapping_tag=c(1))
-data_gene <- read.table("CP003879.codingGene.tab", header=T, sep="\t", stringsAsFactors=F, comment.char="", quote="")
 updated_gene <- mapping_data(data=data_gene, col_name="SeqID", ori_tag=c("CP003879.1"), mapping_tag=c(1))
 updated_gene <- mapping_data(data=updated_gene, col_name="COGcolor", ori_tag=cog_color$categories, mapping_tag=cog_color$hex, other_tag="#BBBBBB")
-data_marker <- read.table("CP003879.marker.tab", header=T, sep="\t", stringsAsFactors=F)
-pdf("test.pdf")
+pdf("~/test.pdf")
 mapping_bg(updated_pars)
 col_plot <- rep("#525252", nrow(updated_gc))
 col_plot[which(updated_gc$GCcontent<0.37)] <- "#969696"
@@ -57,4 +53,7 @@ mapping_marker(mos_pars=updated_pars, shape="p", panel=1, frag=1,
 mapping_marker(mos_pars=updated_pars, shape="t", panel=1, frag=1,
                x.st=c((672600+677200)/2, (2719000+2723800)/2, (3840000+3844600)/2),
                y.st=rep(0.5, 3), y.range=c(0,1), fill="#A63603", tri=c(-1,8,15))
+
+mapping_text(mos_pars=updated_pars, panel=2, frag=1,
+            x=data_marker$End, y=rep(-2, nrow(data_marker)), y.range=c(0,1), texts=data_marker$Description, text_arc=F, angle="off", cex=0.3)
 dev.off()

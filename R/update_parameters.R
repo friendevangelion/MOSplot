@@ -34,6 +34,25 @@ update_parameters <- function(mos_pars=NULL) {
   if (!("grid_y_width" %in% names(mos_pars))) { stop ("Error found in grid_y_width! Please recheck grid_y_width and run load_parameters again!") }
   if (!("grid_x_color" %in% names(mos_pars))) { stop ("Error found in grid_x_color! Please recheck grid_x_color and run load_parameters again!") }
   if (!("grid_x_width" %in% names(mos_pars))) { stop ("Error found in grid_x_width! Please recheck grid_x_width and run load_parameters again!") }
+  # panel_st panel_en frag_st frag_en setting
+  mos_pars$panel_coord_auto = 1
+  if (mos_pars$panel_coord_auto) {
+    tri = matrix(0, length(mos_pars$panel_y_height), length(mos_pars$panel_y_height))
+    tri[lower.tri(tri)] = 1
+    mos_pars$panel_st = as.vector(tri %*% mos_pars$panel_y_height) + seq(0,length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
+    tri = matrix(1, length(mos_pars$panel_y_height), length(mos_pars$panel_y_height))
+    tri[upper.tri(tri)] = 0
+    mos_pars$panel_en = as.vector(tri %*% mos_pars$panel_y_height) + seq(0,length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
+  }
+  mos_pars$block_coord_auto = 1
+  if (mos_pars$block_coord_auto) {
+    tri = matrix(0, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
+    tri[lower.tri(tri)] = 1
+    mos_pars$frag_st = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
+    tri = matrix(1, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
+    tri[upper.tri(tri)] = 0
+    mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
+  }
   # init baseline
   theta_angle = mos_pars$global_start_angle/180*pi
   dl = theta_angle*mos_pars$global_init_angle/180*pi

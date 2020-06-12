@@ -135,8 +135,8 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (is.null(x.en)) { stop ("x.en coordinates is not given!") }
     if (is.null(y.st)) { stop ("y.st coordinates is not given!") }
     if (is.null(y.en)) { stop ("y.en coordinates is not given!") }
-    if (length(x.st)!=length(x.en)) { stop ("x.st coordinates & x.en coordinates are not in the same length!") }
-    if (length(x.st)!=length(y.st)) { stop ("x coordinates & y coordinates are not in the same length!") }
+    if (length(x.st)!=length(x.en) && length(x.en)!=1) { stop ("x.st coordinates & x.en coordinates are not in the same length!") }
+    if (length(x.st)!=length(y.st) && length(y.st)!=1) { stop ("x coordinates & y coordinates are not in the same length!") }
     if (!is.null(y.en)) { if (length(y.st)!=length(y.en) & length(y.en)!=1) { stop ("y.st coordinates & y.en coordinates are not in the same length!") } }
     if (is.null(panel) & length(mos_pars$panel_y_height)==1) { panel = rep(1,length(x.st)) }
     if (!is.null(panel)) { if (length(panel)==1) { panel = rep(panel,length(x.st)) } else if (length(x.st)!=length(panel)) { stop ("panel ID & your data are not in the same length!") } }
