@@ -52,21 +52,19 @@ library("remotes")
 install_version("plotrix", version = "3.7",repos = "http://cran.us.r-project.org")
 ```
 
-**Q2. Error occurred in the installation of package 'plotrix'.**
+**Q2. Error occurred in the installation with warning 'Send failure: Connection was reset'.**
+
+
+A2. Check the network connection or simply download the package and install it locally.
+
 
 ```
-ERROR: dependency 'plotrix' is not available for package 'MOSplot'
-* removing 'XXX/R-X.X.X/library/MOSplot'
-In R CMD INSTALL
-Error: Failed to install 'MOSplot' from GitHub:
-```
+# download the package in tar.gz format from https://api.github.com/repos/friendevangelion/MOSplot/tarball/master
 
-A1. MOSplot requires only package 'plotrix' for plotting bending text. This error caused by the your ancient R. You can upgrade your R or install antique plotrix :)
+# download the package in zip format from https://codeload.github.com/friendevangelion/MOSplot/zip/master
 
-```
-# check the plotrix old version list and select one matched with your R version
-library("remotes")
-install_version("plotrix", version = "3.7",repos = "http://cran.us.r-project.org")
+install.packages("filepath/filename", repos = NULL)
+
 ```
 
 ## NEWS
