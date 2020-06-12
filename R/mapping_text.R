@@ -51,7 +51,7 @@ mapping_text <- function(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y
       rtemp = mos_pars$global_h_zoom*basetemp+h-mos_pars$panel_en[ptemp]+ytemp*(mos_pars$panel_en[ptemp]-mos_pars$panel_st[ptemp])
     }
     for (i in seq(1, length(texts))) {
-      arctext(x=texts[i], radius=rtemp[i], middle=basetemp[i], clockwise=F, ...)
+      arctext(x=as.character(texts[i]), radius=rtemp[i], middle=basetemp[i], clockwise=F, ...)
     }
   } else {
     if (mos_pars$global_directory) {

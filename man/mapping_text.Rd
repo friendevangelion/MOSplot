@@ -1,12 +1,11 @@
 \name{mapping_text}
-\alias{mapping_text
+\alias{mapping_text}
 \title{Mapping Text on Spiral Graph}
 \description{
 Add text on spiral graph with given x-axis and y-axis coordinate by coordinate transformation.
 }
 \usage{
-mapping_text(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y.range=NULL, texts=NULL, text_arc=T, angle="auto", ...) {
-
+mapping_text(mos_pars=NULL, panel=NULL, frag=NULL, x=NULL, y=NULL, y.range=NULL, texts=NULL, text_arc=T, angle="auto", ...)
 }
 \arguments{
 \item{mos_pars}{arguments list: generated in function load_parameters.}
