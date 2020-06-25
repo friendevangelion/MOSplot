@@ -13,7 +13,10 @@ mapping_bg <- function(mos_pars=NULL) {
   }
   if (!("baseline" %in% names(mos_pars))) { stop ("There is no 'baseline' tag in your parameters, maybe there is something wrong in function 'load_parameters' or 'update_parameters'!") }
   else {
-    if (length(mos_pars$baseline)<sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank) {
+    if (length(mos_pars$panel_x_blank)==1) {
+      mos_pars$panel_x_blank = rep(mos_pars$panel_x_blank, length(mos_pars$panel_x_frag)-1)
+    }
+    if (length(mos_pars$baseline)<sum(mos_pars$panel_x_frag) + sum(mos_pars$panel_x_blank)) {
       stop ("The length of 'baseline' is not match with the given parameters 'panel_x_frag' and 'panel_x_blank', maybe there is something wrong in function 'load_parameters' or 'update_parameters'!")
     }
   }
@@ -22,6 +25,8 @@ mapping_bg <- function(mos_pars=NULL) {
   par(mar=c(0, 0, 0, 0))
   plot(c(-mos_pars$size, mos_pars$size), c(-mos_pars$size, mos_pars$size), type="n", ann=F, bty="n", xaxt="n", yaxt="n")
   # init panel
+  if (length(mos_pars$panel_color)==1) { mos_pars$panel_color = rep(mos_pars$panel_color, length(mos_pars$panel_x_frag)) }
+  if (length(mos_pars$panel_border_color)==1) { mos_pars$panel_border_color = rep(mos_pars$panel_border_color, length(mos_pars$panel_x_frag)) }
   for (k in seq(1, length(mos_pars$panel_x_frag))) {
     basetemp = mos_pars$baseline[seq(mos_pars$frag_st[k], mos_pars$frag_en[k], by=mos_pars$panel_x_texture)]
     if (basetemp[length(basetemp)]!=mos_pars$baseline[mos_pars$frag_en[k]]) { basetemp = c(basetemp, mos_pars$baseline[mos_pars$frag_en[k]]) }
@@ -37,8 +42,8 @@ mapping_bg <- function(mos_pars=NULL) {
                      cbind(rev(mos_pars$global_h_zoom*basetemp+h-mos_pars$panel_en[i])*cos(rev(basetemp)),
                            rev(mos_pars$global_h_zoom*basetemp+h-mos_pars$panel_en[i])*sin(rev(basetemp))))
       }
-      if (!is.null(mos_pars$panel_color)) { polygon(temp, border = NA, col = mos_pars$panel_color) }
-      if (!is.null(mos_pars$panel_border_color)) { polygon(temp, border = mos_pars$panel_border_color, lwd = mos_pars$panel_border_size, col = NA) }
+      if (!is.null(mos_pars$panel_color)) { polygon(temp, border = NA, col = mos_pars$panel_color[k]) }
+      if (!is.null(mos_pars$panel_border_color)) { polygon(temp, border = mos_pars$panel_border_color[k], lwd = mos_pars$panel_border_size, col = NA) }
     }
   }
   # plot x-axis separator

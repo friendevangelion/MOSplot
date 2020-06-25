@@ -69,6 +69,12 @@ install.packages("filepath/filename", repos = NULL)
 
 ## NEWS
 
+### version 1.1.2
+
+Enable users create panels with different color and span size.
+
+Update function load_parameters(), update_parameters() and mapping_bg().
+
 ### version 1.1.1
 
 Add a function mapping_marker().

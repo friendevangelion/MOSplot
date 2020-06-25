@@ -38,15 +38,29 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if ("tag_data_size" %in% names(mos_pars)) { mos_pars$tag_data_size = as.numeric(mos_pars$tag_data_size) }
   if ("tag_data_offrate" %in% names(mos_pars)) { mos_pars$tag_data_offrate = as.numeric(mos_pars$tag_data_offrate) }
   if ("panel_x_frag" %in% names(mos_pars)) { mos_pars$panel_x_frag = as.numeric(unlist(strsplit(mos_pars$panel_x_frag,split=","))) }
-  if ("panel_x_texture" %in% names(mos_pars)) { mos_pars$panel_x_texture = as.numeric(mos_pars$panel_x_texture) }
+  if ("panel_x_texture" %in% names(mos_pars)) { mos_pars$panel_x_texture = as.numeric(unlist(strsplit(mos_pars$panel_x_texture,split=","))) }
   if ("panel_x_block" %in% names(mos_pars)) { mos_pars$panel_x_block = as.numeric(mos_pars$panel_x_block) }
-  if ("panel_x_blank" %in% names(mos_pars)) { mos_pars$panel_x_blank = as.numeric(mos_pars$panel_x_blank) }
+  if ("panel_x_blank" %in% names(mos_pars)) { mos_pars$panel_x_blank = as.numeric(unlist(strsplit(mos_pars$panel_x_blank,split=","))) }
   if ("panel_y_height" %in% names(mos_pars)) { mos_pars$panel_y_height = as.numeric(unlist(strsplit(mos_pars$panel_y_height,split=","))) }
   if ("panel_y_blank" %in% names(mos_pars)) { mos_pars$panel_y_blank = as.numeric(mos_pars$panel_y_blank) }
   if ("panel_grid_flag" %in% names(mos_pars)) { if (mos_pars$panel_grid_flag=="NULL") { mos_pars$panel_grid_flag = NULL } else { mos_pars$panel_grid_flag = as.numeric(unlist(strsplit(mos_pars$panel_grid_flag,split=","))) } }
   if ("panel_grid_sub_flag" %in% names(mos_pars)) { if (mos_pars$panel_grid_sub_flag=="NULL") { mos_pars$panel_grid_sub_flag = NULL } else { mos_pars$panel_grid_sub_flag = as.numeric(unlist(strsplit(mos_pars$panel_grid_sub_flag,split=","))) } }
-  if ("panel_color" %in% names(mos_pars)) { if (mos_pars$panel_color=="NULL") { mos_pars$panel_color = NULL } else { mos_pars$panel_color = paste("#",mos_pars$panel_color,sep="") } }
-  if ("panel_border_color" %in% names(mos_pars)) { if (mos_pars$panel_border_color=="NULL") { mos_pars$panel_border_color = NULL } else { mos_pars$panel_border_color = paste("#",mos_pars$panel_border_color,sep="") } }
+  if ("panel_color" %in% names(mos_pars)) {
+    mos_pars$panel_color = as.character(unlist(strsplit(mos_pars$panel_color,split=",")))
+    if (length(mos_pars$panel_color)==1) {
+      if (mos_pars$panel_color=="NULL") { mos_pars$panel_color = NULL } else { mos_pars$panel_color = paste("#",mos_pars$panel_color,sep="") }
+    } else {
+      for (i in seq(1, length(mos_pars$panel_color))) { mos_pars$panel_color[i] = paste("#",mos_pars$panel_color[i],sep="") }
+    }
+  }
+  if ("panel_border_color" %in% names(mos_pars)) {
+    mos_pars$panel_border_color = as.character(unlist(strsplit(mos_pars$panel_border_color,split=",")))
+    if (length(mos_pars$panel_border_color)==1) {
+      if (mos_pars$panel_border_color=="NULL") { mos_pars$panel_border_color = NULL } else { mos_pars$panel_border_color = paste("#",mos_pars$panel_border_color,sep="") }
+    } else {
+      for (i in seq(1, length(mos_pars$panel_border_color))) { mos_pars$panel_border_color[i] = paste("#",mos_pars$panel_border_color[i],sep="") }
+    }
+  }
   if ("panel_border_size" %in% names(mos_pars)) { mos_pars$panel_border_size = as.numeric(mos_pars$panel_border_size) }
   if ("grid_y_color" %in% names(mos_pars)) { mos_pars$grid_y_color = paste("#",mos_pars$grid_y_color,sep="") }
   if ("grid_y_width" %in% names(mos_pars)) { mos_pars$grid_y_width = as.numeric(mos_pars$grid_y_width) }
@@ -123,8 +137,23 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if (!("grid_x_width" %in% names(mos_pars))) { mos_pars$grid_x_width = 0.1 }
   if (is.null(mos_pars$panel_x_texture)) { mos_pars$panel_x_texture = sum(mos_pars$panel_x_frag)/100 }
   if (is.null(mos_pars$panel_x_block)) { mos_pars$panel_x_block = 10^floor(log(sum(mos_pars$panel_x_frag)/100, base=10))*4 }
-  if (!is.null(mos_pars$tag_data)) {
-    if (length(mos_pars$tag_data)!=length(mos_pars$panel_x_frag)) { warning("tag_data is not in same length with panel_x_frag, tag_data will be set as NULL!"); mos_pars$tag_data = NULL; }
+  if (!is.null(mos_pars$panel_x_blank)) {
+    if (length(mos_pars$panel_x_blank)!=length(mos_pars$panel_x_frag)-1 & length(mos_pars$panel_x_blank)!=1) {
+      warning("panel_x_block is not matched with panel_x_frag, panel_x_block will be set as the first value in panel_x_block!")
+      mos_pars$panel_x_blank = mos_pars$panel_x_blank[1]
+    }
+  }
+  if (!is.null(mos_pars$panel_color)) {
+    if (length(mos_pars$panel_color)!=length(mos_pars$panel_x_frag) & length(mos_pars$panel_color)!=1) {
+      warning("panel_color is not in same length with panel_x_frag, panel_color will be set as the first value in panel_color!")
+      mos_pars$panel_color = mos_pars$panel_color[1]
+    }
+  }
+  if (!is.null(mos_pars$panel_border_color)) {
+    if (length(mos_pars$panel_border_color)!=length(mos_pars$panel_x_frag) & length(mos_pars$panel_border_color)!=1) {
+      warning("panel_color is not in same length with panel_x_frag, panel_border_color will be set as the first value in panel_border_color!")
+      mos_pars$panel_border_color = mos_pars$panel_border_color[1]
+    }
   }
   if (("panel_y_height" %in% names(mos_pars))) {
     if (("panel_grid_flag" %in% names(mos_pars))) { if (length(mos_pars$panel_y_height)!=length(mos_pars$panel_grid_flag) & mode(mos_pars$panel_grid_flag)!="logical") { error_flag = 1; warning("panel_y_height & panel_grid_flag are not in same length!") } }
@@ -175,36 +204,6 @@ load_parameters <- function(file="", what="", comment.char="#", sep="\t", quote 
   if (!("bar_fill_alpha" %in% names(mos_pars))) { mos_pars$bar_fill_alpha = 0.6 }
   #
   if (!error_flag) {
-    pi = 3.1415926536
-    mos_pars$validate_level = 1
-    # global_h_total validation
-    if (mos_pars$global_h_total<0) {
-      mos_pars$global_h_total = sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
-    } else if (sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank!=mos_pars$global_h_total) {
-      warning ("Total height of plot setting is different with panel height setting!")
-    }
-    # global_h_zoom validation
-    if (2*pi*mos_pars$global_h_zoom<mos_pars$global_h_total) {
-      warning ("2*pi*global_h_zoom should be larger than global_h_total!")
-      mos_pars$global_h_zoom = floor((sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank)/2/pi)+1
-      show (paste("global_h_zoom is modified to ",mos_pars$global_h_zoom,"!", sep=""))
-    }
-    # delta_angle setting
-    if (mos_pars$global_circ_num>0) {
-      mos_pars$global_init_angle = 180
-      delta_angle = 180
-      total_data = sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank
-      spiral_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_circ_num*360)/180*pi)$value
-      init_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_init_angle)/180*pi)$value
-      while (spiral_length/init_length<total_data | spiral_length/init_length>total_data*1.05) {
-        init_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_init_angle)/180*pi)$value
-        if (spiral_length/init_length<total_data) { mos_pars$global_init_angle = mos_pars$global_init_angle - delta_angle/2 }
-        else if (spiral_length/init_length>total_data*1.05) { mos_pars$global_init_angle = mos_pars$global_init_angle + delta_angle/2 }
-        delta_angle = delta_angle/2
-      }
-      show (paste("global_init_angle had been reset to ", mos_pars$global_init_angle, "!", sep=""))
-      if (mos_pars$global_init_angle<1e-6) { show ("global_init_angle is better larger than 0.000001, please enlarge global_circ_num!") }
-    }
     return (mos_pars)
   } else {
     return (list())

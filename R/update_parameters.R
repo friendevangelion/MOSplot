@@ -34,6 +34,38 @@ update_parameters <- function(mos_pars=NULL, baseline_init=T) {
   if (!("grid_y_width" %in% names(mos_pars))) { stop ("Error found in grid_y_width! Please recheck grid_y_width and run load_parameters again!") }
   if (!("grid_x_color" %in% names(mos_pars))) { stop ("Error found in grid_x_color! Please recheck grid_x_color and run load_parameters again!") }
   if (!("grid_x_width" %in% names(mos_pars))) { stop ("Error found in grid_x_width! Please recheck grid_x_width and run load_parameters again!") }
+  pi = 3.1415926536
+  mos_pars$validate_level = 1
+  # global_h_total validation
+  if (mos_pars$global_h_total<0) {
+    mos_pars$global_h_total = sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank
+  } else if (sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank!=mos_pars$global_h_total) {
+    warning ("Total height of plot setting is different with panel height setting!")
+  }
+  # global_h_zoom validation
+  if (2*pi*mos_pars$global_h_zoom<mos_pars$global_h_total) {
+    warning ("2*pi*global_h_zoom should be larger than global_h_total!")
+    mos_pars$global_h_zoom = floor((sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank)/2/pi)+1
+    show (paste("global_h_zoom is modified to ",mos_pars$global_h_zoom,"!", sep=""))
+  }
+  if (length(mos_pars$panel_x_blank)==1) { mos_pars$panel_x_blank = rep(mos_pars$panel_x_blank, length(mos_pars$panel_x_frag)-1) }
+  total_data = sum(mos_pars$panel_x_frag) + sum(mos_pars$panel_x_blank)
+  if (length(mos_pars$panel_x_blank)==length(mos_pars$panel_x_frag)) { total_data = total_data - mos_pars$panel_x_blank[length(mos_pars$panel_x_frag)] }
+  # delta_angle setting
+  if (mos_pars$global_circ_num>0) {
+    mos_pars$global_init_angle = 180
+    delta_angle = 180
+    spiral_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_circ_num*360)/180*pi)$value
+    init_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_init_angle)/180*pi)$value
+    while (spiral_length/init_length<total_data | spiral_length/init_length>total_data*1.05) {
+      init_length = integrate(function(x)sqrt(x^2+1),mos_pars$global_start_angle/180*pi,(mos_pars$global_start_angle+mos_pars$global_init_angle)/180*pi)$value
+      if (spiral_length/init_length<total_data) { mos_pars$global_init_angle = mos_pars$global_init_angle - delta_angle/2 }
+      else if (spiral_length/init_length>total_data*1.05) { mos_pars$global_init_angle = mos_pars$global_init_angle + delta_angle/2 }
+      delta_angle = delta_angle/2
+    }
+    show (paste("global_init_angle had been reset to ", mos_pars$global_init_angle, "!", sep=""))
+    if (mos_pars$global_init_angle<1e-6) { show ("global_init_angle is better larger than 0.000001, please enlarge global_circ_num!") }
+  }
   # panel_st panel_en frag_st frag_en setting
   mos_pars$panel_coord_auto = 1
   if (mos_pars$panel_coord_auto) {
@@ -48,16 +80,15 @@ update_parameters <- function(mos_pars=NULL, baseline_init=T) {
   if (mos_pars$block_coord_auto) {
     tri = matrix(0, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
     tri[lower.tri(tri)] = 1
-    mos_pars$frag_st = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
+    mos_pars$frag_st = as.vector(tri %*% mos_pars$panel_x_frag) + as.vector(tri %*% c(mos_pars$panel_x_blank, 0)) + 1
     tri = matrix(1, length(mos_pars$panel_x_frag), length(mos_pars$panel_x_frag))
     tri[upper.tri(tri)] = 0
-    mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + seq(0,length(mos_pars$panel_x_frag)-1)*mos_pars$panel_x_blank + 1
+    mos_pars$frag_en = as.vector(tri %*% mos_pars$panel_x_frag) + as.vector(tri %*% c(0, mos_pars$panel_x_blank)) + 1
   }
   # init baseline
   if (baseline_init) {
     theta_angle = mos_pars$global_start_angle/180*pi
     dl = theta_angle*mos_pars$global_init_angle/180*pi
-    total_data = sum(mos_pars$panel_x_frag) + length(mos_pars$panel_x_frag)*mos_pars$panel_x_blank - mos_pars$panel_x_blank
     mos_pars$baseline = rep(0, total_data+1)
     i = 0
     while (i<=total_data+1) {

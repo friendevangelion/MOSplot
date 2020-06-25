@@ -16,13 +16,13 @@ panel_x_frag	4321832	# data points of every panel
 panel_x_texture	2000	# data points to draw background
 panel_x_block	20000	# data points per block in panel
 panel_x_blank	20000	# data points between panels
+panel_color	F7F7F7	# panel background color
+panel_border_color	999999	# panel background border color
+panel_border_size	0.1	# panel background border size
 panel_y_height	12,6	# panel height
 panel_y_blank	1	# blank between panels
 panel_grid_flag	1,0	# panel grid, NULL means empty
 panel_grid_sub_flag	1,0	# panel sub grid, NULL means empty
-panel_color	F7F7F7	# panel background color
-panel_border_color	999999	# panel background border color
-panel_border_size	0.1	# panel background border size
 grid_y_color	BDBDBD	# panel grid y color
 grid_y_width	0.1	# panel grid y width
 grid_x_color	BDBDBD	# block grid x color
