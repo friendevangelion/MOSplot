@@ -48,7 +48,7 @@ update_parameters <- function(mos_pars=NULL, baseline_init=T) {
     mos_pars$global_h_zoom = floor((sum(mos_pars$panel_y_height)+(length(mos_pars$panel_y_height)-1)*mos_pars$panel_y_blank)/2/pi)+1
     show (paste("global_h_zoom is modified to ",mos_pars$global_h_zoom,"!", sep=""))
   }
-  if (length(mos_pars$panel_x_blank)==1) { mos_pars$panel_x_blank = rep(mos_pars$panel_x_blank, length(mos_pars$panel_x_frag)-1) }
+  if (length(mos_pars$panel_x_blank)==1) { if (length(mos_pars$panel_x_frag)==1) { mos_pars$panel_x_blank = 0 } else { mos_pars$panel_x_blank = rep(mos_pars$panel_x_blank, length(mos_pars$panel_x_frag)-1) } }
   total_data = sum(mos_pars$panel_x_frag) + sum(mos_pars$panel_x_blank)
   if (length(mos_pars$panel_x_blank)==length(mos_pars$panel_x_frag)) { total_data = total_data - mos_pars$panel_x_blank[length(mos_pars$panel_x_frag)] }
   # delta_angle setting
@@ -103,3 +103,4 @@ update_parameters <- function(mos_pars=NULL, baseline_init=T) {
   }
   return (mos_pars)
 }
+
