@@ -69,6 +69,10 @@ install.packages("filepath/filename", repos = NULL)
 
 ## NEWS
 
+### version 1.1.3
+
+Update function mapping_shape() for bended bars and arrows.
+
 ### version 1.1.2
 
 Enable users create panels with different color and span size.

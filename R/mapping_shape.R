@@ -300,9 +300,55 @@ mapping_shape <- function(mos_pars=NULL, shape=NULL, panel=NULL, frag=NULL, x=NU
     if (is.null(size)) { plot_size = mos_pars$point_size } else { plot_size = stemp }
     for (i in seq(1,min(length(plot_x11),length(plot_x12),length(plot_x21),length(plot_x22)))) {
       if (arrow.size>0) {
-        temp = cbind(c(plot_x11[i], plot_x12[i], plot_xar[i], plot_x22[i], plot_x21[i]),c(plot_y11[i], plot_y12[i], plot_yar[i], plot_y22[i], plot_y21[i]))
+        if (arrow.type>0) {
+          interlist = seq((x.st+mos_pars$frag_st[ftemp])[i],
+                          (x.en+mos_pars$frag_st[ftemp])[i],
+                          by=pars$panel_x_texture)
+        } else {
+          interlist = seq((x.st+mos_pars$frag_st[ftemp])[i],
+                          (x.en-arrow.size+mos_pars$frag_st[ftemp])[i],
+                          by=pars$panel_x_texture)
+        }
+        if (length(interlist)>1) {  
+          interlist[-1] -> interlist
+          basetemp.in = mos_pars$baseline[interlist]
+          plot_x1i <- (mos_pars$global_h_zoom*basetemp.in-h+mos_pars$panel_en[ptemp[i]]-
+                         y.st*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*cos(basetemp.in)
+          plot_x2i <- (mos_pars$global_h_zoom*rev(basetemp.in)-h+mos_pars$panel_en[ptemp[i]]-
+                         y.en*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*cos(rev(basetemp.in))
+          plot_y1i <- (mos_pars$global_h_zoom*basetemp.in-h+mos_pars$panel_en[ptemp[i]]-
+                         y.st*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*sin(basetemp.in)
+          plot_y2i <- (mos_pars$global_h_zoom*rev(basetemp.in)-h+mos_pars$panel_en[ptemp[i]]-
+                         y.en*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*sin(rev(basetemp.in))
+          temp = cbind(c(plot_x11[i], plot_x1i, plot_x12[i], plot_xar[i], plot_x22[i], plot_x2i, plot_x21[i]),c(plot_y11[i], plot_y1i, plot_y12[i], plot_yar[i], plot_y22[i], plot_y2i, plot_y21[i]))
+        } else {
+          temp = cbind(c(plot_x11[i], plot_x12[i], plot_xar[i], plot_x22[i], plot_x21[i]),c(plot_y11[i], plot_y12[i], plot_yar[i], plot_y22[i], plot_y21[i]))
+        }
       } else {
-        temp = cbind(c(plot_x11[i], plot_x12[i], plot_x22[i], plot_x21[i], plot_xar[i]),c(plot_y11[i], plot_y12[i], plot_y22[i], plot_y21[i], plot_yar[i]))
+        if (arrow.type>0) {
+          interlist = seq((x.st+mos_pars$frag_st[ftemp])[i],
+                          (x.en+mos_pars$frag_st[ftemp])[i],
+                          by=pars$panel_x_texture)
+        } else {
+          interlist = seq((x.st+arrow.size+mos_pars$frag_st[ftemp])[i],
+                          (x.en+mos_pars$frag_st[ftemp])[i],
+                          by=pars$panel_x_texture)
+        }
+        if (length(interlist)>1) {  
+          interlist[-1] -> interlist
+          basetemp.in = mos_pars$baseline[interlist]
+          plot_x1i <- (mos_pars$global_h_zoom*basetemp.in-h+mos_pars$panel_en[ptemp[i]]-
+                         y.st*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*cos(basetemp.in)
+          plot_x2i <- (mos_pars$global_h_zoom*rev(basetemp.in)-h+mos_pars$panel_en[ptemp[i]]-
+                         y.en*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*cos(rev(basetemp.in))
+          plot_y1i <- (mos_pars$global_h_zoom*basetemp.in-h+mos_pars$panel_en[ptemp[i]]-
+                         y.st*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*sin(basetemp.in)
+          plot_y2i <- (mos_pars$global_h_zoom*rev(basetemp.in)-h+mos_pars$panel_en[ptemp[i]]-
+                         y.en*(mos_pars$panel_en[ptemp[i]]-mos_pars$panel_st[ptemp[i]]))*sin(rev(basetemp.in))
+          temp = cbind(c(plot_x11[i], plot_x1i, plot_x12[i], plot_x22[i], plot_x2i, plot_x21[i], plot_xar[i]),c(plot_y11[i], plot_y1i, plot_y12[i], plot_y22[i], plot_y2i, plot_y21[i], plot_yar[i]))
+        } else {
+          temp = cbind(c(plot_x11[i], plot_x12[i], plot_x22[i], plot_x21[i], plot_xar[i]),c(plot_y11[i], plot_y12[i], plot_y22[i], plot_y21[i], plot_yar[i]))
+        }
       }
       if (!is.null(plot_col) & !is.null(plot_fill)) {
         if (length(plot_fill)>1) { pfill = plot_fill[i] } else { pfill = plot_fill }
